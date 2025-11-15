@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# FastAPI RAG data
+server/faiss_index.pkl
+server/metadata.pkl
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+uvicorn-debug.log
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Editor/OS
+*.DS_Store
+.vscode/

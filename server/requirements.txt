@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sentence-transformers
+faiss-cpu
+transformers
+torch
+pandas
+python-dotenv
+supabase
+requests

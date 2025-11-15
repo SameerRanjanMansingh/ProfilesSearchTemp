@@ -1,0 +1,6 @@
+id,name,headline,location,skills,summary,email
+1,Alice Johnson,Senior Data Scientist,New York,"Python;Machine Learning;NLP","Experienced ML researcher with 6 years building production ML systems focusing on NLP and recommendation.",alice@example.com
+2,Bob Gupta,Frontend Engineer,San Francisco,"React;TypeScript;Next.js","Frontend engineer with 4 years building web apps with a focus on performance and accessibility.",bob@example.com
+3,Carla Mendes,Product Manager,Berlin,"Roadmapping;Stakeholder Management;Metrics","PM who has shipped mobile and web products across fintech and health domains.",carla@example.com
+4,Daniel Kim,DevOps Engineer,London,"Kubernetes;AWS;CI/CD","DevOps generalist with strong automation skills for cloud-native applications.",daniel@example.com
+5,Emily Zhao,UX Designer,Remote,"Figma;User Research;Prototyping","Designer focusing on human-centered experiences and design systems.",emily@example.com
