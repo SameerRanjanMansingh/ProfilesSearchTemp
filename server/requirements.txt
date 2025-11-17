@@ -9,3 +9,4 @@ python-dotenv
 supabase
 requests
 gunicorn
+numpy<2

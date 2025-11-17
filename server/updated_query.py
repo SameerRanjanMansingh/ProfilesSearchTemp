@@ -6,8 +6,8 @@ from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
 
 embed_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 # generator as before
-gen_tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-small")
-gen_model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
+gen_tokenizer = AutoTokenizer.from_pretrained("t5-small")
+gen_model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
 generator = pipeline("text2text-generation", model=gen_model, tokenizer=gen_tokenizer, device=-1)
 
 def query_supabase_and_generate(query_text, top_k=4):

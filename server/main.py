@@ -13,7 +13,7 @@ INDEX_PATH = os.path.join(BASE_DIR, "faiss_index.pkl")
 METADATA_PATH = os.path.join(BASE_DIR, "metadata.pkl")
 
 EMBED_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
-GEN_MODEL_NAME = "google/flan-t5-small"
+GEN_MODEL_NAME = "t5-small"
 EMBED_DIM = 384
 
 app = FastAPI(title="Profiles RAG API (improved)")
@@ -174,9 +174,8 @@ def ingest_supabase():
 def query(payload: QueryPayload):
     global faiss_index, metadata
     if faiss_index is None:
-        raise HTTPException(status_code=400, detail="Index not built. Call /ingest_local first.")
+        raise HTTPException(status_code=400, detail="Index not built. Call /ingest_supabase first.")
     ensure_embedding_model()
-    ensure_generator()
     import faiss
     import numpy as np
 
