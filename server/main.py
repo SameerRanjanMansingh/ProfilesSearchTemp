@@ -1,11 +1,3 @@
-"""
-Improved FastAPI server for Profiles RAG demo.
-
-- Uses absolute path (relative to this file) to find profiles_sample.csv.
-- Adds /health and /index_info endpoints.
-- Better error messages for missing CSV and missing Supabase table.
-- Lazy-loads heavy models to keep startup fast.
-"""
 import os
 import pickle
 from fastapi import FastAPI, HTTPException
@@ -105,55 +97,6 @@ def index_info():
         "generator_loaded": generator is not None,
     }
 
-@app.post("/ingest_local")
-def ingest_local():
-    """
-    Load sample profiles from server/profiles_sample.csv and index them.
-    Uses absolute CSV_PATH located next to this file.
-    """
-    global faiss_index, metadata
-    # ensure file exists
-    if not os.path.exists(CSV_PATH):
-        raise HTTPException(
-            status_code=500,
-            detail=f"profiles_sample.csv not found at {CSV_PATH}. Make sure the file exists."
-        )
-
-    # lazy load embedding model
-    ensure_embedding_model()
-    import pandas as pd
-    import faiss
-    import numpy as np
-
-    df = pd.read_csv(CSV_PATH)
-    docs = []
-    metadata = []
-    for _, row in df.iterrows():
-        text = (
-            f"Name: {row.get('name','')}\n"
-            f"Headline: {row.get('headline','')}\n"
-            f"Location: {row.get('location','')}\n"
-            f"Skills: {row.get('skills','')}\n"
-            f"Summary: {row.get('summary','')}\n"
-        )
-        docs.append(text)
-        metadata.append({
-            "id": str(row.get("id","")),
-            "name": row.get("name",""),
-            "headline": row.get("headline",""),
-            "location": row.get("location",""),
-            "skills": row.get("skills",""),
-            "summary": row.get("summary",""),
-            "email": row.get("email","")
-        })
-
-    embeddings = embed_model.encode(docs, show_progress_bar=True, convert_to_numpy=True)
-    faiss.normalize_L2(embeddings)
-    index = faiss.IndexFlatIP(EMBED_DIM)
-    index.add(embeddings)
-    faiss_index = index
-    save_index()
-    return {"status": "ingested", "count": len(docs), "csv_path": CSV_PATH}
 
 @app.post("/ingest_supabase")
 def ingest_supabase():
