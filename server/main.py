@@ -71,9 +71,15 @@ def load_index():
         return True
     return False
 
+@app.get("/")
+def root():
+    return {"status": "running"}
+
 @app.on_event("startup")
 def startup():
     loaded = load_index()
+    ensure_embedding_model()
+
     if loaded:
         print("Loaded FAISS index and metadata (from disk).")
     else:
